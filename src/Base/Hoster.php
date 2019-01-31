@@ -2,20 +2,27 @@
 
 namespace Indir\Base;
 
+use GuzzleHttp\Client as HttpClient;
 use Indir\Exception\RegexNotMatched;
 
 abstract class Hoster
 {
-    public function __construct($url)
+    protected $client;
+
+    public function __construct($url, HttpClient $httpClient = null)
     {
+        // todo(0xbkt): should we clean the $url or is it caller's responsibility?
+
         if (!preg_match(static::PATTERN, $url, $matches)) {
             throw new RegexNotMatched();
         }
 
+        $this->client = $httpClient ? clone $httpClient : new HttpClient();
+
         static::onMatch($matches);
     }
 
-    public function generate(Account $account): Link
+    public function generate(Account $account = null): Link
     {
         // todo(0xbkt): should we do something with this?
         $file = static::probe();
