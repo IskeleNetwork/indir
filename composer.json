@@ -2,7 +2,7 @@
     "name": "0xbkt/indir",
     "description": "Indir is a utility library that helps to generate direct links from filehoster links using premium accounts.",
     "license": "MIT",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "type": "library",
     "autoload": {
         "psr-4": {
