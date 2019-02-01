@@ -4,6 +4,7 @@ namespace Indir\Base;
 
 use GuzzleHttp\Client as HttpClient;
 use Indir\Exception\RegexNotMatched;
+use League\Uri\Http as HttpURL;
 
 abstract class Hoster
 {
@@ -11,14 +12,24 @@ abstract class Hoster
 
     public function __construct($url, HttpClient $httpClient = null)
     {
-        // todo(0xbkt): should continue using strings for $url or use a uri library?
         // todo(0xbkt): should we clean the $url or is it caller's responsibility?
+
+        {
+            $isString = is_string($url);
+            $isHttpURL = is_a($url, HttpURL::class);
+
+            if (!$isString && !$isHttpURL) {
+                throw new \InvalidArgumentException(sprintf('url must be a string or an instance of %s.', HttpURL::class));
+            }
+
+            $url = $isString ? HttpURL::createFromString($url) : $url;
+        }
 
         // decorating the $url. unless the method is declared by
         // the child, original $url will be returned.
         $url = static::onURL($url);
 
-        if (!preg_match(static::PATTERN, $url, $matches)) {
+        if (!preg_match(static::PATTERN, (string) $url, $matches)) {
             throw new RegexNotMatched();
         }
 
