@@ -11,7 +11,12 @@ abstract class Hoster
 
     public function __construct($url, HttpClient $httpClient = null)
     {
+        // todo(0xbkt): should continue using strings for $url or use a uri library?
         // todo(0xbkt): should we clean the $url or is it caller's responsibility?
+
+        // decorating the $url. unless the method is declared by
+        // the child, original $url will be returned.
+        $url = static::onURL($url);
 
         if (!preg_match(static::PATTERN, $url, $matches)) {
             throw new RegexNotMatched();
@@ -28,6 +33,11 @@ abstract class Hoster
         $file = static::probe();
 
         return static::onGenerate($file, $account);
+    }
+
+    protected function onURL($url)
+    {
+        return $url;
     }
 
     abstract protected function onMatch($matches);
