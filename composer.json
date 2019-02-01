@@ -1,5 +1,5 @@
 {
-    "name": "IskeleNetwork/indir",
+    "name": "iskele-network/indir",
     "description": "Indir is a utility library that helps to generate direct links from filehoster links using premium accounts.",
     "license": "MIT",
     "version": "0.1.1",
@@ -10,6 +10,7 @@
         }
     },
     "require": {
-        "guzzlehttp/guzzle": "^6.3"
+        "guzzlehttp/guzzle": "^6.3",
+        "league/uri": "^5.3"
     }
 }
