@@ -2,7 +2,7 @@
     "name": "iskele-network/indir",
     "description": "Indir is a utility library that helps to generate direct links from filehoster links using premium accounts.",
     "license": "MIT",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "type": "library",
     "autoload": {
         "psr-4": {
