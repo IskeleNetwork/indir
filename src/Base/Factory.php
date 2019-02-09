@@ -22,9 +22,6 @@ class Factory
             } catch (RegexNotMatched $e) {
                 // if a regexp match attempt fails, proceed to the next.
                 continue;
-            } catch (\Exception $e) {
-                // falling back.
-                throw $e;
             }
         }
 
